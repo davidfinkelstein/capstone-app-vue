@@ -1,13 +1,31 @@
 <template>
   <div class="lists-show">
+    <!-- All code goes inside this div -->
     <h1>Lists Show</h1>
     <h2>Lists Name: {{list.name}}</h2>
     <h2>Lists Category: {{list.category}}</h2>
     <h2>Number of {{ list.name }}: {{list.items.length}}</h2>
+
+    <div>
+      <button v-on:click="setSortAttribute('name')" class ="btn btn-primary">Sort by name</button>
+      <button v-on:click="setSortAttribute('avg_rating')" class ="btn btn-primary">Sort by rating</button>
+    </div>
+
     
-    <ol v-for="item in list.items">
+
+  <div>
+    <div v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
+      {{item}}
+    </div>    
+  </div>  
+
+  <!-- <datalist id="names">
+    
+  </datalist> -->
+
+<!--     <ol v-for="item in list.items">
       <li>{{item}}</li>
-    </ol>
+    </ol> -->
 
     <div class="container">
       <form v-on:submit.prevent="submit()">
@@ -39,13 +57,16 @@
            <label>Upload Image:</label>
            <input class="form-control" placeholder="Image" type="file" v-on:change="setFile($event)" ref="fileInput">
          </div>
+        <div class="form-group">
+          <label>Review:</label> 
+          <input type="text" class="form-control" v-model="comment">
+        </div> 
+        <div class="form-group">
+          <label>Rating:</label> 
+          <input type="text" class="form-control" v-model="rating">
+        </div> 
         <input type="submit" class="btn btn-primary" value="Submit">
       </form>
-
-      <div>
-        <button class="btn btn-primary">Sort by rating // high to low, low to high</button>
-        <button class="btn btn-primary">Sort by name</button>
-      </div>
 
     </div>
   </div>
@@ -65,7 +86,12 @@ export default {
       websiteUrl: "",
       amazonUrl: "",
       imgUrl: "",
-      errors: []
+      reviews: "",
+      rating: "",
+      comment: "",
+      errors: [],
+      sortAttribute: "avg_rating",
+      sortAscending: 1
     };
   },
   created: function() { //Compiles before the page loads
@@ -89,19 +115,33 @@ export default {
       formData.append("website_url", this.websiteUrl);
       formData.append("amazon_url", this.amazonUrl);
       formData.append("img_url", this.imgUrl);
+      formData.append("rating", this.rating);
+      formData.append("comment", this.comment);
       formData.append("list_id", this.list.id);
+
 
 
 
       axios
         .post("http://localhost:3000/api/items", formData)
         .then(response => {
-          this.$router.push("/items");
+          console.log(response.data);
+          this.$router.push("/items/" + response.data.id);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
         });
-    }
+    },
+
+    setSortAttribute: function(attribute) {
+      if  (this.sortAttribute === attribute) {
+        this.sortAscending = this.sortAscending * -1;
+      } else {
+        this.sortAscending = 1;
+      }
+
+      this.sortAttribute = attribute;
+    }  
   },
 
   computed: {}

@@ -52,27 +52,25 @@ export default {
 
     setFile: function(event) {
       if (event.target.files.length > 0) {
-        this.image = event.target.files[0];
+        this.imgUrl = event.target.files[0];
       } 
+    },
+    submit: function() { //submit = patch
+      var formData = new FormData();
+      formData.append("rating", this.rating);
+      formData.append("comment", this.comment);
+      formData.append("img_url", this.imgUrl);
+
+      
+      axios
+        .patch("http://localhost:3000/api/reviews/" + this.review.id, formData)
+        .then(response => {
+          this.$router.push("/items/" + this.review.item_id);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
     }
-  },
-
-  submit: function() { //submit = patch
-    var formData = new FormData();
-    formData.append("rating", this.review.rating);
-    formData.append("comment", this.review.comment);
-    formData.append("img_url", this.review.imgUrl);
-    formData.append("review_id", this.review.id);
-
-    
-    axios
-      .patch("http://localhost:3000/api/reviews/", formData)
-      .then(response => {
-        this.$router.push("/items/" + this.item.review.id);
-      })
-      .catch(error => {
-        this.errors = error.response.data.errors;
-      });
   },
   computed: {}
 };

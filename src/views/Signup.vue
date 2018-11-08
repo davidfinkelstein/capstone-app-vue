@@ -14,24 +14,24 @@
           <label>Email:</label>
           <input type="email" class="form-control" v-model="email">
         </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" class="form-control" v-model="password">
+        </div>
+        <div class="form-group">
+          <label>Repeat Password:</label>
+          <input type="password" class="form-control" v-model="passwordConfirmation">
+        </div>
         <form>
           <div>
             <label>Enter your birthday:</label>
             <input type="date" min="1900-01-01" max="2001-01-01" v-model="birthday">
           </div>
         </form>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" class="form-control" v-model="password">
-        </div>
-        <div class="form-group">
-          <label>Password confirmation:</label>
-          <input type="password" class="form-control" v-model="passwordConfirmation">
-        </div>
         <input type="submit" class="btn btn-primary" value="Submit">
       </form>
 
-      <form action="/">
+      <form action="./views/Home.vue">
           <input type="submit" class="btn btn-primary" value="Cancel">
         </form>
 

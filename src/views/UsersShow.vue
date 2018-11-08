@@ -1,5 +1,11 @@
 <template>
   <div class="users-show">
+
+    <h2>{{user.name}}</h2>
+    <router-link to="/users/:id/edit">
+      <input type="submit" class="btn btn-primary" value="Edit Profile">
+    </router-link>
+
     <div>
       <h4>Name: {{user.name}}</h4>
       <h4>Email: {{user.email}}</h4>
@@ -8,14 +14,9 @@
       <h4>Ratings: {{user.reviews.length}}</h4>
       <ol v-for="review in user.reviews">
         <li>{{review}}</li>
+        <div>Reviewed on {{review.created_at}}</div>
       </ol>
     </div>
-<!-- User.created_at??? -->
-    <!-- Current user edit ???????? -->
-    
-    <router-link to="/users/:id/edit">
-      <input type="submit" class="btn btn-primary" value="Edit Profile">
-    </router-link>
   
 
   </div>

@@ -12,7 +12,13 @@
         </div>
         <div class="form-group">
           <label>Category:</label> 
-          <input type="text" class="form-control" v-model="category">
+          <select v-model="category">
+            <option disabled value="">Please select one</option>
+            <option value="Television">Television</option>
+            <option value="Restaurants">Restaurants</option>
+            <option value="Video Games">Video Games</option>
+            <option value="Products">Products</option>
+          </select>
         </div>
         <input type="submit" class="btn btn-primary" value="Submit">
         <form action="./views/ListsIndex.vue">
