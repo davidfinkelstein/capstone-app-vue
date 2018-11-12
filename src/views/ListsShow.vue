@@ -14,9 +14,19 @@
     
 
   <div>
-    <div v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
-      {{item}}
-    </div>    
+    <ol v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
+      <li>
+        Name: <button><router-link v-bind:to="'/items/' + item.id">{{item.name}}</router-link></button>
+        <br>
+        Picture: <img :src="item.img_url" style="width:200px; height:200px" alt="">
+        <br>
+        Description: {{item.description}}
+        <br>
+        Price: {{item.price}}
+        <br>
+        Rating: {{item.avg_rating}}
+      </li>
+    </ol>    
   </div>  
 
   <!-- <datalist id="names">

@@ -21,9 +21,7 @@
           </select>
         </div>
         <input type="submit" class="btn btn-primary" value="Submit">
-        <form action="./views/ListsIndex.vue">
-          <input type="submit" class="btn btn-primary" value="Cancel">
-        </form>
+        <button><router-link v-bind:to="'/#/'">Cancel</router-link></button>
       </form>
     </div>
   </div>

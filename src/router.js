@@ -22,12 +22,12 @@ export default new Router({
     { path: '/login', name: 'login', component: Login},
     { path: "/logout", name: "logout", component: Logout },
     { path: '/signup', name: 'signup', component: Signup },
-    { path: '/users/:id', name: 'users-show', component: UsersShow },
+    { path: '/users/me', name: 'users-show', component: UsersShow },
     { path: '/users/:id/edit', name: 'users-edit', component: UsersEdit },
     { path: '/items/:id', name: 'items-show', component: ItemsShow },
     { path: '/items/:id/edit', name: 'items-edit', component: ItemsEdit },
     { path: '/reviews/:id/edit', name: 'reviews-edit', component: ReviewsEdit },
-    { path: '/lists', name: 'lists-index', component: ListsIndex },
+    { path: '/lists/:category', name: 'lists-index', component: ListsIndex },
     { path: '/lists/new', name: 'lists-new', component: ListsNew },
     { path: '/lists/:id', name: 'lists-show', component: ListsShow }
     // {

@@ -51,7 +51,7 @@ export default {
     };
   },
   created: function() { //created = get request
-    axios.get("http://localhost:3000/api/users/" + this.$route.params.id).then(response => {
+    axios.get("http://localhost:3000/api/users/me").then(response => {
       console.log(response.data);
       this.user = response.data;
       this.name = response.data.name;
@@ -67,7 +67,7 @@ export default {
         password_confirmation: this.passwordConfirmation
       };
       axios
-        .patch("http://localhost:3000/api/users/" + this.$route.params.id, params)
+        .patch("http://localhost:3000/api/users/me", params)
         .then(response => {
           this.$router.push("/");
         })

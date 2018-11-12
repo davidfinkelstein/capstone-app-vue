@@ -1,21 +1,28 @@
 <template>
   <div class="items-show">
-    <h1>Hello</h1>
+    <h1>Items Show</h1>
     <div>
       <h4>Name: {{item.name}}</h4>
+      <h4>Picture: {{item.img_url}}</h4>
       <h4>Price: {{item.price}}</h4>
       <h4>Description: {{item.description}}</h4>
       <h4>Item's Website: {{item.website_url}}</h4>
       <h4>Amazon Link: {{item.amazon_url}}</h4>
+      <h4>Rating: {{item.avg_rating}}</h4>
 
       <button><router-link v-bind:to="'/items/' + item.id + '/edit'">Request Edit</router-link></button>
       
     </div>
+
     <div v-for="review in item.reviews">
       Review: {{review}}
+        <div>
+          <button><a v-if="review.user_id == user.id"v-bind:to="'/reviews/' + review.id + '/edit'">Edit Review</a></button>
+        </div>
+      <img :src="review.img_url" style="width:200px; height:200px" alt="">
     </div>
       
-    <div class="container">
+    <div v-if="unreviewed()" class="container">
         <form v-on:submit.prevent="submit()">
           <h1>New Review</h1>
           <ul>
@@ -49,6 +56,7 @@ export default {
       comment: "",
       rating: "",
       imgUrl: "",
+      user: {},
       errors: []
     };
   },
@@ -56,6 +64,12 @@ export default {
     axios.get("http://localhost:3000/api/items/" + this.$route.params.id).then(response => {
       console.log(response.data);
       this.item = response.data;
+
+      axios.get("http://localhost:3000/api/users/me").then(response => {
+        console.log(response.data);
+        this.user = response.data;
+      
+      });
     });
   },
 
@@ -82,6 +96,16 @@ export default {
         .catch(error => {
           this.errors = error.response.data.errors;
         });
+    },
+
+    unreviewed: function() {
+      var unreviewed = true;
+      this.user.reviews.forEach(function(review) {
+        if (review.item_id === this.item.id) {
+          unreviewed = false;
+        } 
+      }.bind(this));
+      return unreviewed;
     }
   },
   computed: {}
