@@ -97,6 +97,7 @@
       </header>
       <!-- header end -->
     </div>
+
     <!-- header-container end -->
     <div class="container">
       <router-view :key="$route.fullPath"></router-view>
@@ -126,8 +127,10 @@
 </div>
 </template>
 
+
 <style>
 </style>
+
 
 
 <script>

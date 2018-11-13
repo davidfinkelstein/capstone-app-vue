@@ -2,6 +2,43 @@
   <div class="items-show">
     <h1>Items Show</h1>
     <div>
+
+    
+      <div class="container">
+        <div class="listing-item mb-20">
+          <div class="row grid-space-0">
+            <div class="col-md-6 col-lg-4 col-xl-3">
+              <div class="overlay-container">
+                <img src="images/product-1.jpg" alt="">
+                <a class="overlay-link" href="shop-product.html"><i class="fa fa-plus"></i></a>
+                <span class="badge">30% OFF</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xl-9">
+              <div class="body">
+                <h3 class="margin-clear"><a href="shop-product.html">Consectetur adipisicing elit</a></h3>
+                <p>
+                  <i class="fa fa-star text-default"></i>
+                  <i class="fa fa-star text-default"></i>
+                  <i class="fa fa-star text-default"></i>
+                  <i class="fa fa-star text-default"></i>
+                  <i class="fa fa-star"></i>
+                  <a href="#" class="btn-sm-link"><i class="fa fa-heart pr-1"></i>Add to Wishlist</a>
+                  <a href="#" class="btn-sm-link"><i class="fa fa-link pr-1"></i>View Details</a>
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, cum repellat nisi quaerat mollitia reiciendis totam repellendus dicta id dolorem voluptate debitis molestias molestiae asperiores, odit magni vitae placeat optio.</p>
+                <div class="elements-list clearfix">
+                  <span class="price"><del>$199.00</del> $150.00</span>
+                  <a href="#" class="pull-right btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </head>
+
+<!-- 
       <h4>Name: {{item.name}}</h4>
       <h4>Picture: {{item.img_url}}</h4>
       <h4>Price: {{item.price}}</h4>
@@ -11,7 +48,7 @@
       <h4>Rating: {{item.avg_rating}}</h4>
 
       <button><router-link v-bind:to="'/items/' + item.id + '/edit'">Request Edit</router-link></button>
-      
+       -->
     </div>
 
     <div v-for="review in item.reviews">
