@@ -11,7 +11,7 @@
        <h4><a v-bind:href="'/#/lists/' + list.id">{{ list.name }}</a></h4>
       <h4>Category: {{ list.category }}</h4>      
     </div>
-    <form action="/#/lists/new">
+    <form action="#/lists/new">
       <input type="submit" class="btn btn-primary" value="New List">
     </form>
   </div>
@@ -31,7 +31,7 @@ export default {
     },
     created: function() { 
       console.log(this.searchTerm);
-      axios.get("http://localhost:3000/api/lists/?category=" + this.$route.params.category).then(response => {
+      axios.get("http://localhost:3000/api/lists/").then(response => {
         console.log(response.data);
         this.lists = response.data;
       });

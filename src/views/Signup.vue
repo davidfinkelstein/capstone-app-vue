@@ -24,7 +24,7 @@
         </div>
         <form>
           <div>
-            <label>Date of birth:</label>
+            <label>Enter your birthday:</label>
             <input type="date" min="1900-01-01" max="2001-01-01" v-model="birthday">
           </div>
         </form>
