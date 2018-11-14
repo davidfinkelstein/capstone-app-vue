@@ -1,0 +1,33 @@
+<template>
+  <div class="items-index">
+
+    <div v-for="item in items">
+       <h4><a v-bind:href="'/#/items/' + item.id">{{ item.name }}</a></h4>
+      <h4>{{item}}</h4>      
+    </div>
+  </div>
+</template>
+
+<style>
+</style>
+
+<script>
+  var axios = require('axios');
+export default {
+  //Compiles before the page loads
+    data: function() {
+      return {
+        items: [],
+      };
+    },
+    created: function() { 
+      console.log(this.searchTerm);
+      axios.get("http://localhost:3000/api/items/?name=" + this.$route.params.name).then(response => {
+        console.log(response.data);
+        this.items = response.data;
+      });
+    },
+    methods: {},
+    computed: {}
+};
+</script>

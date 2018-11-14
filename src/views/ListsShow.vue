@@ -14,9 +14,19 @@
     
 
   <div>
-    <div v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
-      {{item}}
-    </div>    
+    <ol v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
+      <li>
+        Name: <button><router-link v-bind:to="'/items/' + item.id">{{item.name}}</router-link></button>
+        <br>
+        Picture: <img :src="item.img_url" style="width:200px; height:200px" alt="">
+        <br>
+        Description: {{item.description}}
+        <br>
+        Price: {{item.price}}
+        <br>
+        Rating: {{item.avg_rating}}
+      </li>
+    </ol>    
   </div>  
 
   <!-- <datalist id="names">
@@ -75,7 +85,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data: function() {
     return {
@@ -101,7 +110,6 @@ export default {
     });
   },
   methods: {
-
     setFile: function(event) {
       if (event.target.files.length > 0) {
         this.imgUrl = event.target.files[0];
@@ -118,10 +126,6 @@ export default {
       formData.append("rating", this.rating);
       formData.append("comment", this.comment);
       formData.append("list_id", this.list.id);
-
-
-
-
       axios
         .post("http://localhost:3000/api/items", formData)
         .then(response => {
@@ -132,18 +136,15 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-
     setSortAttribute: function(attribute) {
       if  (this.sortAttribute === attribute) {
         this.sortAscending = this.sortAscending * -1;
       } else {
         this.sortAscending = 1;
       }
-
       this.sortAttribute = attribute;
     }  
   },
-
   computed: {}
 };
 </script>

@@ -33,9 +33,7 @@
 
         <input type="submit" class="btn btn-primary" value="Submit">
 
-        <form action="./views/ItemsShow.vue">
-          <input type="submit" class="btn btn-primary" value="Cancel">
-        </form>
+        <button><router-link v-bind:to="'/items/' + item.id">Cancel</router-link></button>
 
       </form>
     </div>
@@ -71,25 +69,31 @@ export default {
     });
   },
   methods: {
+
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.imgUrl = event.target.files[0];
+      }
+    }, 
     submit: function() { //submit = patch
-      var params = {
-        name: this.name,
-        price: this.price,
-        description: this.description,
-        website_url: this.websiteUrl,
-        amazon_url: this.amazonUrl,
-        img_url: this.imgUrl
-      };
+      var formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price);
+      formData.append("description", this.description);
+      formData.append("website_url", this.websiteUrl);
+      formData.append("amazon_url", this.amazonUrl);
+      formData.append("img_url", this.imgUrl);
       axios
-        .patch("http://localhost:3000/api/items/" + this.$route.params.id, params)
+        .patch("http://localhost:3000/api/items/" + this.item.id, formData)
         .then(response => {
-          this.$router.push("/items/" + this.$route.params.id, params);
+          this.$router.push("/items/" + this.item.id);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
+          console.log(this.errors);
         });
     }
   },
   computed: {}
 };
-</script>
+    </script>

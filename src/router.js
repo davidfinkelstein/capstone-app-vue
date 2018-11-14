@@ -6,6 +6,7 @@ import Logout from './views/Logout.vue';
 import Signup from './views/Signup.vue';
 import UsersShow from './views/UsersShow.vue';
 import UsersEdit from './views/UsersEdit.vue';
+import ItemsIndex from './views/ItemsIndex.vue';
 import ItemsShow from './views/ItemsShow.vue';
 import ItemsEdit from './views/ItemsEdit.vue';
 import ReviewsEdit from './views/ReviewsEdit.vue';
@@ -24,10 +25,11 @@ export default new Router({
     { path: '/signup', name: 'signup', component: Signup },
     { path: '/users/:id', name: 'users-show', component: UsersShow },
     { path: '/users/:id/edit', name: 'users-edit', component: UsersEdit },
+    { path: '/items/:name', name: 'items-index', component: ItemsIndex },
     { path: '/items/:id', name: 'items-show', component: ItemsShow },
     { path: '/items/:id/edit', name: 'items-edit', component: ItemsEdit },
     { path: '/reviews/:id/edit', name: 'reviews-edit', component: ReviewsEdit },
-    { path: '/lists', name: 'lists-index', component: ListsIndex },
+    { path: '/lists/:category', name: 'lists-index', component: ListsIndex },
     { path: '/lists/new', name: 'lists-new', component: ListsNew },
     { path: '/lists/:id', name: 'lists-show', component: ListsShow }
     // {

@@ -31,7 +31,7 @@ export default {
     },
     created: function() { 
       console.log(this.searchTerm);
-      axios.get("http://localhost:3000/api/lists/").then(response => {
+      axios.get("http://localhost:3000/api/lists/?category=" + this.$route.params.category).then(response => {
         console.log(response.data);
         this.lists = response.data;
       });

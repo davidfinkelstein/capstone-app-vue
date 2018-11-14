@@ -1,8 +1,9 @@
 <template>
-  <div class="reviews-edit">
+  <div v-if="this.review.user_id === this.user.id" class="reviews-edit">
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <h1>Reviews Edit</h1>
+        <h3>{{this.itemName}}</h3>
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
@@ -20,7 +21,14 @@
          </div>
 
         <input type="submit" class="btn btn-primary" value="Submit">
+
+        <button><router-link v-bind:to="'/items/' + review.item_id">Cancel</router-link></button>
+
       </form>
+
+      <button v-on:click="deleteReview(review)">Delete Review</button>
+
+
     </div>
   </div>
 </template>
@@ -28,7 +36,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data: function() {
     return {
@@ -36,6 +43,8 @@ export default {
       rating: "",
       comment: "",
       imgUrl: "",
+      itemName: "",
+      user: {},
       errors: []
     };
   },
@@ -46,10 +55,15 @@ export default {
       this.rating = response.data.rating;
       this.comment = response.data.comment;
       this.imgUrl = response.data.img_url;
+      this.itemName = response.data.item_name;
+      axios.get("http://localhost:3000/api/users/me").then(response => {
+        console.log(response.data);
+        this.user = response.data;
+      
+      });
     });
   },
   methods: {
-
     setFile: function(event) {
       if (event.target.files.length > 0) {
         this.imgUrl = event.target.files[0];
@@ -60,11 +74,21 @@ export default {
       formData.append("rating", this.rating);
       formData.append("comment", this.comment);
       formData.append("img_url", this.imgUrl);
-
       
       axios
         .patch("http://localhost:3000/api/reviews/" + this.review.id, formData)
         .then(response => {
+          this.$router.push("/items/" + this.review.item_id);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
+    },
+    deleteReview: function(review) {
+      axios
+        .delete("http://localhost:3000/api/reviews/" + review.id)
+        .then(response => {
+          delete axios.defaults.headers.common["Authorization"];
           this.$router.push("/items/" + this.review.item_id);
         })
         .catch(error => {
@@ -75,3 +99,28 @@ export default {
   computed: {}
 };
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Was good time!
+    // currentUserReview: function() {
+    //   var currentUserReview = true;
+    //   this.user.reviews.forEach(function(review) {
+    //     if (this.review.user_id !== this.user.id) {
+    //       currentUserReview = false;
+    //     } 
+    //   }.bind(this));
+    //   return currentUserReview;
+    // } -->
