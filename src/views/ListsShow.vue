@@ -4,7 +4,7 @@
     <h1>Lists Show</h1>
     <h2>Lists Name: {{list.name}}</h2>
     <h2>Lists Category: {{list.category}}</h2>
-    <h2>Number of {{ list.name }}: {{list.items.length}}</h2>
+    <h2>Number of {{ list.name }} Items: {{list.items.length}}</h2>
 
     <div>
       <button v-on:click="setSortAttribute('name')" class ="btn btn-primary">Sort by name</button>
@@ -14,19 +14,19 @@
     
 
   <div>
-    <ol v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
-      <li>
-        Name: <button><router-link v-bind:to="'/items/' + item.id">{{item.name}}</router-link></button>
+    <div v-for="item in orderBy(list.items, sortAttribute, sortAscending)">
+      <div>
+        <button><router-link v-bind:to="'/items/' + item.id">{{item.name}}</router-link></button>
         <br>
-        Picture: <img :src="item.img_url" style="width:200px; height:200px" alt="">
+        <img :src="item.img_url" style="width:200px; height:200px" alt="">
         <br>
         Description: {{item.description}}
         <br>
         Price: {{item.price}}
         <br>
         Rating: {{item.avg_rating}}
-      </li>
-    </ol>    
+      </div>
+    </div>    
   </div>  
 
   <!-- <datalist id="names">
@@ -49,7 +49,7 @@
         </div>
         <div class="form-group">
           <label>Enter Price:</label> 
-          <input type="number" class="form-control" v-model="price">
+          <input type="number" step="0.01" class="form-control" v-model="price">
         </div>
         <div class="form-group">
           <label>Enter Description:</label> 

@@ -1,23 +1,31 @@
 <template>
   <div class="items-show">
     <h1>Items Show</h1>
+
+    <div class="star-ratings-sprite"><span :style="starsPercentage" id="star-ratings-sprite-rating"></span></div>
     <div>
       <h4>Name: {{item.name}}</h4>
-      <h4>Picture: {{item.img_url}}</h4>
+      <h4><img :src="item.img_url" style="width:200px; height:150px" alt=""></h4>
       <h4>Price: {{item.price}}</h4>
       <h4>Description: {{item.description}}</h4>
       <h4>Item's Website: {{item.website_url}}</h4>
       <h4>Amazon Link: {{item.amazon_url}}</h4>
       <h4>Rating: {{item.avg_rating}}</h4>
 
-      <button><router-link v-bind:to="'/items/' + item.id + '/edit'">Request Edit</router-link></button>
+      <button><router-link v-bind:to="'/items/' + item.id + '/edit'">Request Item Edit</router-link></button>
       
     </div>
 
+    <br>
+    <br>
+
     <div v-for="review in item.reviews">
-      Review: {{review}}
+      Review: 
+      {{review.comment}}
+      {{review.rating}}
+      <p>Reviewed on {{review.created_at}}</p>
         <div>
-          <button><a v-if="review.user_id == user.id"v-bind:to="'/reviews/' + review.id + '/edit'">Edit Review</a></button>
+          <button><router-link v-if="review.user_id == user.id" v-bind:to="'/reviews/' + review.id + '/edit'">Edit Review</router-link></button>
         </div>
       <img :src="review.img_url" style="width:200px; height:200px" alt="">
     </div>
@@ -106,6 +114,25 @@
   .rating > input:checked ~ label:hover,
   .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
   .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+    
+  .star-ratings-sprite {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+    font-size: 0;
+    height: 21px;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 110px;
+    margin: 0 auto;
+  }
+    
+  #star-ratings-sprite-rating {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display:block;
+  }
 </style>
 
 <script>
@@ -118,13 +145,16 @@ export default {
       rating: "",
       imgUrl: "",
       user: {},
-      errors: []
+      errors: [],
+      starsPercentage: ""
     };
   },
   created: function() { //Compiles before the page loads
     axios.get("http://localhost:3000/api/items/" + this.$route.params.id).then(response => {
       console.log(response.data);
       this.item = response.data;
+      var starsPercent = this.item.avg_rating * 20;
+      this.starsPercentage = "width:" + starsPercent + "%";
 
       axios.get("http://localhost:3000/api/users/me").then(response => {
         console.log(response.data);
@@ -155,7 +185,7 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-    
+
     unreviewed: function() {
       var unreviewed = true;
       this.user.reviews.forEach(function(review) {

@@ -10,7 +10,6 @@
           <li v-if="isLoggedIn()"><router-link to="/logout">Logout</router-link></li>
         </ul>
       </div> -->
-      <p>{{itemName}}</p>
         <input v-model="itemName" type="text" name="text" class="search" placeholder="Search..">
         <input v-on:click="submit()" type="submit"> | 
       <a v-if="!isLoggedIn()" class = "nav-item nav-link" href="#"><router-link to="/signup">Signup</router-link> | </a>  
@@ -18,10 +17,10 @@
       <a v-if="isLoggedIn()" class = "nav-item nav-link" href="#"><router-link to="/logout">Logout</router-link> | </a>
       <a v-if="isLoggedIn()" class="nav-item nav-link" href="#"><router-link to="/users/me">My Profile</router-link> | </a>
       <a class="nav-item" href="#"><router-link to="/">Home</router-link> | </a>   
-      <a class="nav-item" href="#"><router-link to="/lists/Movies">Movies</router-link> | </a>  
-      <a class="nav-item" href="#"><router-link to="/lists/Restaurants">Restaurants</router-link> | </a>  
-      <a class="nav-item" href="#"><router-link to="/lists/VideoGames">Video Games</router-link> | </a>  
-      <a class="nav-item" href="#"><router-link to="/lists/Products">Products</router-link></a> 
+      <a class="nav-item" href="#"><router-link to="/lists/categories/Television">Movies</router-link> | </a>  
+      <a class="nav-item" href="#"><router-link to="/lists/categories/Restaurants">Restaurants</router-link> | </a>  
+      <a class="nav-item" href="#"><router-link to="/lists/categories/VideoGames">Video Games</router-link> | </a>  
+      <a class="nav-item" href="#"><router-link to="/lists/categories/Products">Products</router-link></a> 
     </div>
     <router-view :key="$route.fullPath"></router-view>
   </div>
@@ -80,7 +79,7 @@ export default {
       submit: function() { 
         console.log(this.searchTerm);
 
-        this.$router.push("/items/" + this.itemName);
+        this.$router.push("/items/names/" + this.itemName);
         //Send router to items index frontend. Interpolate items name into the route
         //Make items index view
       },
