@@ -8,11 +8,6 @@
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
         <div class="form-group">
-          <label>Edit Review:</label>
-          <input type="text" class="form-control" v-model="comment">
-        </div>
-        <div class="form-group">
-          <label>Edit Rating:</label>
             <fieldset class="rating">
                 <input v-model="rating" type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                 <input v-model="rating" type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
@@ -28,6 +23,10 @@
 
             <!-- <input type="number" class="form-control" v-model="rating"> -->
           </div>
+        <div class="form-group">
+          <label>Edit Review:</label>
+          <input type="text" class="form-control" v-model="comment">
+        </div>
         <div class="form-group">
            <label>Upload new image:</label>
            <input class="form-control" placeholder="Image" type="file" v-on:change="setFile($event)" ref="fileInput">
@@ -57,7 +56,7 @@
 
   .rating { 
     border: none;
-    float: left;
+    display: inline;
   }
 
   .rating > input { display: none; } 
@@ -111,7 +110,6 @@ export default {
       this.review = response.data;
       this.rating = response.data.rating;
       this.comment = response.data.comment;
-      this.imgUrl = response.data.img_url;
       this.itemName = response.data.item_name;
       axios.get("http://localhost:3000/api/users/me").then(response => {
         console.log(response.data);
@@ -130,7 +128,9 @@ export default {
       var formData = new FormData();
       formData.append("rating", this.rating);
       formData.append("comment", this.comment);
-      formData.append("img_url", this.imgUrl);
+      if (this.imgUrl) {
+        formData.append("img_url", this.imgUrl);
+      }
       
       axios
         .patch("http://localhost:3000/api/reviews/" + this.review.id, formData)

@@ -16,7 +16,7 @@
             <option disabled value="">Please select one</option>
             <option value="Television">Television</option>
             <option value="Restaurants">Restaurants</option>
-            <option value="Video Games">Video Games</option>
+            <option value="VideoGames">Video Games</option>
             <option value="Products">Products</option>
           </select>
         </div>

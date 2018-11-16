@@ -1,15 +1,15 @@
 <template>
   <div class="items-show">
-    <h1>Items Show</h1>
 
-    <div class="star-ratings-sprite"><span :style="starsPercentage" id="star-ratings-sprite-rating"></span></div>
-    <div>
+
       <h4>Name: {{item.name}}</h4>
       <h4><img :src="item.img_url" style="width:200px; height:150px" alt=""></h4>
-      <h4>Price: {{item.price}}</h4>
+      <h4>Price: {{item.formatted_price}}</h4>
       <h4>Description: {{item.description}}</h4>
-      <h4>Item's Website: {{item.website_url}}</h4>
-      <h4>Amazon Link: {{item.amazon_url}}</h4>
+      <a :href="item.website_url" target="_blank">Website</a> |
+      <a :href="item.amazon_url" target="_blank">Amazon</a>
+      <div class="star-ratings-sprite"><span :style="starsPercentage" id="star-ratings-sprite-rating"></span></div>
+      <div>
       <h4>Rating: {{item.avg_rating}}</h4>
 
       <button><router-link v-bind:to="'/items/' + item.id + '/edit'">Request Item Edit</router-link></button>
@@ -82,7 +82,7 @@
 
   .rating { 
     border: none;
-    float: left;
+    display: inline;
   }
 
   .rating > input { display: none; } 

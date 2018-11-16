@@ -80,6 +80,7 @@ export default {
         console.log(this.searchTerm);
 
         this.$router.push("/items/names/" + this.itemName);
+        this.itemName = "";
         //Send router to items index frontend. Interpolate items name into the route
         //Make items index view
       },

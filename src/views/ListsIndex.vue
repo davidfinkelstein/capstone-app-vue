@@ -1,11 +1,7 @@
 <template>
   <div class="lists-index">
-    
-    <h1>Capstone Project Listies</h1>
 
-    <h2>Lists</h2>
-
-    <br>
+    <h2>{{this.$route.params.category}} Lists</h2>
 
     <div v-for="list in lists">
        <h4><a v-bind:href="'/#/lists/' + list.id">{{ list.name }}</a></h4>

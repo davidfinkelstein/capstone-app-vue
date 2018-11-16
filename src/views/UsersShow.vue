@@ -20,7 +20,7 @@
           <router-link v-bind:to="'/items/' + review.item_id"><h3>{{review.item_name}}</h3></router-link>
           <h4><img :src="review.img_url" style="width:200px; height:150px" alt=""></h4>
           <h5>Rating: {{review.rating}}</h5>
-          <div class="star-ratings-sprite"><span :style="starsPercentage" id="star-ratings-sprite-rating"></span></div>
+          <div class="star-ratings-sprite"><span :style="'width:' + review.rating*20 + '%'" id="star-ratings-sprite-rating"></span></div>
           <div>
           <h5>Comment: {{review.comment}}</h5>
           <h5>Item Name: {{review.item_name}}</h5>
@@ -60,8 +60,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      user: {},
-      starsPercentage: ""
+      user: {}
     };
   },
   created: function() { //Compiles before the page loads
@@ -69,8 +68,6 @@ export default {
       console.log(response.data);
       this.user = response.data;
       console.log(this.user.reviews);
-      var starsPercent = this.user.reviews.rating * 20;
-      this.starsPercentage = "width:" + starsPercent + "%";
     });
   },
   methods: {},
