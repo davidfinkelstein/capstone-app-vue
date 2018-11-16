@@ -1,10 +1,9 @@
 <template>
   <div class="lists-show">
     <!-- All code goes inside this div -->
-    <h1>Lists Show</h1>
-    <h2>Lists Name: {{list.name}}</h2>
-    <h2>Lists Category: {{list.category}}</h2>
-    <h2>Number of {{ list.name }} Items: {{list.items.length}}</h2>
+    <h2>List: {{list.name}}</h2>
+    <h2>Category: {{list.category}}</h2>
+    <h5>Number of {{ list.name }} Items: {{list.items.length}}</h5>
 
     <div>
       <button v-on:click="setSortAttribute('name')" class ="btn btn-primary">Sort by name</button>

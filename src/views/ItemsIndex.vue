@@ -10,7 +10,7 @@
          <br>
          Description: {{item.description}}
          <br>
-         Price: {{item.price}}
+         Price: {{item.formatted_price}}
          <br>
          Rating: {{item.avg_rating}}
        </div> 
